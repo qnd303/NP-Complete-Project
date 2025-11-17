@@ -16,11 +16,6 @@
 
 #have 4-6 slides for the presentations
 
-# Python3 program to print Vertex Cover
-# of a given undirected graph 
-
-# This class represents a directed graph 
-# using adjacency list representation 
 import sys
 
 def vertex_cover_approx(graph):
