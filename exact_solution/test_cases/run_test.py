@@ -1,5 +1,5 @@
 import time
-from exact_solution import brute_force_vertex_cover
+from cs412_minvertexcover_exact import brute_force_vertex_cover
 
 test_files = [
     ("Small", "test_small.py"),
