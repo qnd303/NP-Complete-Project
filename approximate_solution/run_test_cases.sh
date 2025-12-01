@@ -1,0 +1,3 @@
+python3 approximate_solution.py testrun_test_cases.sh_cases/small_graph.txt
+python3 approximate_solution.py testrun_test_cases.sh_cases/medium_graph.txt
+python3 approximate_solution.py testrun_test_cases.sh_cases/large_graph.txt
