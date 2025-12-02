@@ -16,93 +16,122 @@
 
 #have 4-6 slides for the presentations
 
+#!/usr/bin/env python3
+
 import sys
+import random
+import os
+from collections import defaultdict
 
-def vertex_cover_approx(graph):
-    """
-    graph: dict mapping vertex -> set of neighbors
-           Example: {1: {2,3}, 2:{1}, 3:{1}}
-
-    Returns: a set C that is a 2-approximate vertex cover.
-    """
-    
-    G = {u: set(vs) for u, vs in graph.items()}
-    
-    C = set()  # vertex cover
-    
-    # While edges remain
-    while True:
-        u = None
-        v = None
-        
-        for x in G:
-            if G[x]:     
-                u = x
-                v = next(iter(G[x]))  # arbitrary neighbor
-                break
-        
-        if u is None:  # no edges left
-            break
-        
-        # Add both endpoints to vertex cover
-        C.add(u)
-        C.add(v)
-        
-        for neighbor in list(G[u]):
-            G[neighbor].discard(u)
-        for neighbor in list(G[v]):
-            G[neighbor].discard(v)
-        
-        G[u].clear()
-        G[v].clear()
-
-    return C
-
-def parse_graph_from_lines(lines):
-    """
-    Expects lines like:
-        u v
-    meaning an undirected edge.
-    """
-    graph = {}
-
+def parse_graph_lines(lines):
+    G = defaultdict(set)
+    edges = []
     for line in lines:
+        line = line.strip()
+        if not line or line.startswith('#'):
+            continue
         parts = line.split()
         if len(parts) != 2:
             continue
-
         u, v = parts
+        G[u].add(v)
+        G[v].add(u)
+        edges.append((u, v))
+    return G, edges
 
-        # convert to int if they are numbers
+def randomized_maximal_matching(edges, seed=None):
+    if seed is not None:
+        random.seed(seed)
+    else:
+        random.seed()
+
+    edges_shuffled = edges[:]  
+    random.shuffle(edges_shuffled)
+
+    matched = set()  
+    matching = []
+
+    for (u, v) in edges_shuffled:
+        if u not in matched and v not in matched:
+            matching.append((u, v))
+            matched.add(u)
+            matched.add(v)
+
+    return matching
+
+def build_cover_from_matching(matching):
+    C = set()
+    for (u, v) in matching:
+        C.add(u)
+        C.add(v)
+    return C
+
+def reduction_pass(G, C):
+    removed_any = True
+    while removed_any:
+        removed_any = False
+        for v in list(C):
+            all_neighbors_in_C = True
+            for u in G.get(v, []):
+                if u not in C:
+                    all_neighbors_in_C = False
+                    break
+            if all_neighbors_in_C:
+                C.remove(v)
+                removed_any = True
+    return C
+
+def cover_valid(G, C):
+    for u, neighs in G.items():
+        for v in neighs:
+            if u not in C and v not in C:
+                return False
+    return True
+
+def main():
+    data = None
+    if not sys.stdin.isatty():
+        data = sys.stdin.read()
+    if (data is None or data.strip() == "") and os.path.exists("input.txt"):
+        with open("input.txt", "r") as f:
+            data = f.read()
+    if data is None:
+        data = ""
+
+    lines = data.splitlines()
+    G, edges = parse_graph_lines(lines)
+
+    if not edges:
+        print()
+        return
+
+    seed_env = os.getenv("SEED")
+    seed = None
+    if seed_env is not None:
         try:
-            u = int(u)
-            v = int(v)
+            seed = int(seed_env)
         except:
-            pass
+            seed = None
 
-        graph.setdefault(u, set()).add(v)
-        graph.setdefault(v, set()).add(u)
 
-    return graph
+    matching = randomized_maximal_matching(edges, seed=seed)
+    C = build_cover_from_matching(matching)
 
+    C = reduction_pass(G, C)
+
+    if not cover_valid(G, C):
+        for (u, v) in edges:
+            if u not in C and v not in C:
+                C.add(u)
+                C.add(v)
+        C = reduction_pass(G, C)
+
+    try:
+        ordered = sorted(C, key=lambda x: (0, int(x)) if x.isdigit() else (1, x))
+    except Exception:
+        ordered = sorted(C)
+
+    print(" ".join(map(str, ordered)))
 
 if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        sys.exit("no filename provided")
-
-    filename = sys.argv[1]
-
-    with open(filename, "r") as f:
-        file_contents = f.read()
-
-    # Clean lines
-    lines = [line.strip() for line in file_contents.splitlines() if line.strip()]
-
-    # Parse graph
-    graph = parse_graph_from_lines(lines)
-
-    # Compute vertex cover
-    C = vertex_cover_approx(graph)
-
-    # Print result
-    print("Vertex Cover:", C)
+    main()
