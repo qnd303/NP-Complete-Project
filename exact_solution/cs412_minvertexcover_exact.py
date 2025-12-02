@@ -46,6 +46,7 @@ def brute_force_vertex_cover(graph, edges):
                 found_this_size.append(cover)
 
         if found_this_size:
+
             return found_this_size[0]
 
     return None
