@@ -1,12 +1,9 @@
-V = 28
+V = 30
 graph = {u: [] for u in range(V)}
 
-# Left side: 0-13
-# Right side: 14-27
-left = range(14)
-right = range(14, 28)
+left = range(15)
+right = range(15, 30)
 
-# Build complete bipartite graph K14,14
 for u in left:
     for v in right:
         graph[u].append(v)

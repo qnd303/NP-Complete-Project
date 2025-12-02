@@ -29,10 +29,12 @@ def parse_graph_lines(lines):
             edges.add(tuple(sorted((u, v))))
     return G, edges
 
-def brute_force_vertex_cover(G, edges):
-    nodes = list(G.keys())
-    nodes.sort()
-    for k in range(len(nodes)+1):
+def brute_force_vertex_cover(graph, edges):
+    nodes = list(graph.keys())
+    current_best = None
+
+    for k in range(len(nodes) + 1):
+        found_this_size = []
         for subset in combinations(nodes, k):
             cover = set(subset)
             valid = True
@@ -41,7 +43,11 @@ def brute_force_vertex_cover(G, edges):
                     valid = False
                     break
             if valid:
-                return cover
+                found_this_size.append(cover)
+
+        if found_this_size:
+            return found_this_size[0]
+
     return None
 
 def cover_valid(G, C):
