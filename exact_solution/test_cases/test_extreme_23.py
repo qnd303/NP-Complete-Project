@@ -1,4 +1,4 @@
-V = 30
+V = 32
 graph = {u: [] for u in range(V)}
 
 left = range(15)
