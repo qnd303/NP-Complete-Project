@@ -1,0 +1,38 @@
+Approximation Notes
+-------------------
+Algorithm:
+- Build a randomized maximal matching (shuffle edges).
+- For each matched edge, add both endpoints to the vertex cover (2-approx).
+- Apply a local reduction pass: remove any vertex whose every neighbor is also
+  in the cover (dominated vertex).
+- Fallback greedy to ensure cover validity.
+
+Complexity:
+- Building adjacency and reading edges: O(m + n).
+- Randomized matching: O(m).
+- Reduction pass: O(iterations * deg), typically linear overall.
+- Good for n > 1000 and very fast in practice.
+
+Approximation guarantee:
+- Because the matching is maximal, any optimal vertex cover must include at
+  least one endpoint of each matching edge. Adding both endpoints gives a cover
+  of size ≤ 2 * OPT.
+
+Notes:
+- Randomization helps avoid worst-case deterministic tie-breaking; SEED allows
+  reproducible runs.
+- Output format: single line, space-separated vertices, no labels, to be grader-friendly.
+
+script used to detect number of edges and vertices:
+
+for f in small_graph.txt medium_graph.txt large_graph.txt non_optimal.txt
+do
+    echo "$f"
+
+    edges=$(wc -l < "$f")
+    vertices=$(awk '{print $1 "\n" $2}' "$f" | sort -n | uniq | tail -1)
+
+    echo "Vertices: $vertices"
+    echo "Edges: $edges"
+    echo
+done

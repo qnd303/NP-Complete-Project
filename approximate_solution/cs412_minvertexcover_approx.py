@@ -90,13 +90,23 @@ def cover_valid(G, C):
 
 def main():
     data = None
+
     if not sys.stdin.isatty():
         data = sys.stdin.read()
+
+    if (data is None or data.strip() == "") and len(sys.argv) > 1:
+        filename = sys.argv[1]
+        if os.path.exists(filename):
+            with open(filename, "r") as f:
+                data = f.read()
+
     if (data is None or data.strip() == "") and os.path.exists("input.txt"):
         with open("input.txt", "r") as f:
             data = f.read()
-    if data is None:
-        data = ""
+
+    if data is None or data.strip() == "":
+        print("No input provided")
+        return
 
     lines = data.splitlines()
     G, edges = parse_graph_lines(lines)
@@ -112,7 +122,6 @@ def main():
             seed = int(seed_env)
         except:
             seed = None
-
 
     matching = randomized_maximal_matching(edges, seed=seed)
     C = build_cover_from_matching(matching)
@@ -131,7 +140,7 @@ def main():
     except Exception:
         ordered = sorted(C)
 
-    print(" ".join(map(str, ordered)))
+    print("Vertex Cover:", " ".join(map(str, ordered)))
 
 if __name__ == "__main__":
     main()
