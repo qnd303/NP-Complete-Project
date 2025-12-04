@@ -1,9 +1,18 @@
-"""
-Approximate Vertex Cover using:
-- Randomized maximal matching
-- Reduction pass (removes unnecessary vertices)
+#Approximate solution with greedy approach:
+#Strategy A:
+#Greedy approximation algorithm
 
-"""
+# Initialize an empty set C to be the vertex cover.
+# While there is an edge remaining in the graph:
+# Choose an arbitrary edge 
+#  from the graph.
+# Add both vertices 
+#  and 
+#  to the set C.
+# Remove 
+# , 
+# , and all edges connected to either of them from the graph.
+# Return the set C. 
 
 import sys
 import random
@@ -32,10 +41,10 @@ def randomized_maximal_matching(edges, seed=None):
     else:
         random.seed()
 
-    edges_shuffled = edges[:]
+    edges_shuffled = edges[:]  
     random.shuffle(edges_shuffled)
 
-    matched = set()
+    matched = set()  
     matching = []
 
     for (u, v) in edges_shuffled:
@@ -75,33 +84,25 @@ def cover_valid(G, C):
                 return False
     return True
 
-def approx_vertex_cover_from_edge_lines(lines, seed=None):
-    G, edges = parse_graph_lines(lines)
-    if not edges:
-        return set()
-
-    matching = randomized_maximal_matching(edges, seed=seed)
-    C = build_cover_from_matching(matching)
-    C = reduction_pass(G, C)
-
-    if not cover_valid(G, C):
-        for (u, v) in edges:
-            if u not in C and v not in C:
-                C.add(u)
-                C.add(v)
-        C = reduction_pass(G, C)
-
-    return C
-
 def main():
     data = None
+
     if not sys.stdin.isatty():
         data = sys.stdin.read()
+
+    if (data is None or data.strip() == "") and len(sys.argv) > 1:
+        filename = sys.argv[1]
+        if os.path.exists(filename):
+            with open(filename, "r") as f:
+                data = f.read()
+
     if (data is None or data.strip() == "") and os.path.exists("input.txt"):
         with open("input.txt", "r") as f:
             data = f.read()
-    if data is None:
-        data = ""
+
+    if data is None or data.strip() == "":
+        print("No input provided")
+        return
 
     lines = data.splitlines()
     G, edges = parse_graph_lines(lines)
@@ -120,6 +121,7 @@ def main():
 
     matching = randomized_maximal_matching(edges, seed=seed)
     C = build_cover_from_matching(matching)
+
     C = reduction_pass(G, C)
 
     if not cover_valid(G, C):
@@ -134,7 +136,7 @@ def main():
     except Exception:
         ordered = sorted(C)
 
-    print(" ".join(map(str, ordered)))
+    print("Vertex Cover:", " ".join(map(str, ordered)))
 
 if __name__ == "__main__":
     main()
