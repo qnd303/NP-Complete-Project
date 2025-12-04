@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 is_to_vc.py
 Independent Set -> Vertex Cover (complement)

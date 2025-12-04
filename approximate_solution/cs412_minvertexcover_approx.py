@@ -14,10 +14,6 @@
 # , and all edges connected to either of them from the graph.
 # Return the set C. 
 
-#have 4-6 slides for the presentations
-
-#!/usr/bin/env python3
-
 import sys
 import random
 import os

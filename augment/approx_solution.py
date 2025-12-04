@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 Approximate Vertex Cover using:
 - Randomized maximal matching
