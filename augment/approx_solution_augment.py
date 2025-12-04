@@ -75,7 +75,6 @@ def cover_valid(G, C):
                 return False
     return True
 
-# 🔥 THIS FUNCTION IS NEW — used for comparison script
 def approx_vertex_cover_from_edge_lines(lines, seed=None):
     G, edges = parse_graph_lines(lines)
     if not edges:

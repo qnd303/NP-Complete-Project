@@ -24,7 +24,7 @@ sys.path.insert(0, os.path.join(ROOT, "exact_solution"))
 sys.path.insert(0, HERE)
 
 from cs412_minvertexcover_exact import brute_force_vertex_cover as exact_vc
-from approx_solution import approx_vertex_cover_from_edge_lines
+from augment.approx_solution_augment import approx_vertex_cover_from_edge_lines
 
 
 def read_adj_graph(path):
