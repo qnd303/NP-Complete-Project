@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 vc_to_is.py
-Convert VC adjacency list -> IS edge list
+Convert VC adjacency list -> IS edge list (with edge count)
 """
 
 import sys
@@ -29,6 +29,10 @@ def main():
             if u < v:
                 edges.add((u, v))
 
+    # FIRST print number of edges for indset_approx.py
+    print(len(edges))
+
+    # THEN print each edge
     for (u, v) in sorted(edges):
         print(f"{u} {v}")
 
