@@ -1,24 +1,68 @@
-Approximation Notes
--------------------
-Algorithm:
-- Build a randomized maximal matching (shuffle edges).
-- For each matched edge, add both endpoints to the vertex cover (2-approx).
-- Apply a local reduction pass: remove any vertex whose every neighbor is also
-  in the cover (dominated vertex).
-- Fallback greedy to ensure cover validity.
+%PDF-1.4
+%“Œ‹ž ReportLab Generated PDF document http://www.reportlab.com
+1 0 obj
+<<
+/F1 2 0 R
+>>
+endobj
+2 0 obj
+<<
+/BaseFont /Helvetica /Encoding /WinAnsiEncoding /Name /F1 /Subtype /Type1 /Type /Font
+>>
+endobj
+3 0 obj
+<<
+/Contents 7 0 R /MediaBox [ 0 0 612 792 ] /Parent 6 0 R /Resources <<
+/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>> /Rotate 0 /Trans <<
 
-Complexity:
-- Building adjacency and reading edges: O(m + n).
-- Randomized matching: O(m).
-- Reduction pass: O(iterations * deg), typically linear overall.
-- Good for n > 1000 and very fast in practice.
+>> 
+  /Type /Page
+>>
+endobj
+4 0 obj
+<<
+/PageMode /UseNone /Pages 6 0 R /Type /Catalog
+>>
+endobj
+5 0 obj
+<<
+/Author (\(anonymous\)) /CreationDate (D:20251210151812+00'00') /Creator (\(unspecified\)) /Keywords () /ModDate (D:20251210151812+00'00') /Producer (ReportLab PDF Library - www.reportlab.com) 
+  /Subject (\(unspecified\)) /Title (\(anonymous\)) /Trapped /False
+>>
+endobj
+6 0 obj
+<<
+/Count 1 /Kids [ 3 0 R ] /Type /Pages
+>>
+endobj
+7 0 obj
+<<
+/Filter [ /ASCII85Decode /FlateDecode ] /Length 971
+>>
+stream
+Gat=*bAQ&g&A7ljp6`4DC;'O)-:&OQB\K6nRYri+['nUXUe4N[r:aLF&(E%&+GM&W=B"#6m-H95(t'dThdm17?,2f10uOA4$]),;KAmj*(5"i(Ge7uYJT74-ika*UkV2Np7oR#S`J-"BQ30_kn$>o`G*?q01+"p:fi?WQq8QWN\.io4/>_@'DW/2aW*slC$^JOe\</:@Zh&5dIREYI_L2254Zsi_roe%VMrr^5%hM8#W8tV-(4Hh7(!"oKb03La4:,Sr,'^YNeV9XCZ3,+J%$lcn2;Ad`(N;Gt#HfMSdF`s9C0hOT\h@hQ2)Bas>6@o!">2*UgC7memhof#BmNe;mRUt=W_RSCG0=Uc.!XUBQYC@pTDHKl:Qgc?-&LPT+]`B'?rgRXjT@;Mc,C;*'Gl@mO,#nYH*C7s34!ilL.>Ra!#'/3Ke"!@Nqa`FH0-D&4[H"V_c9^Q>acS@dBK[J"s[D.*NUrd`$aG)5,%QgStFY5:1-fV\BlM%P#k3Ng-F)r=)ALM2YFJ'2Ar'EX$b<b0+;baa=TB*/`S#`AF.ca2EF.A78;%=k1EYALQbC)YAhB%Eh@B56rPa[aU-1f&NnZ\\2Wn.eVan]oZi^Y4@,"[i2uT)_cqdqKPo7MY$r2BeZq!^!C4i*G>kC+[Ip`/kpnl83GXc_NBmfdh9*D7gA\XUh/"uX%2:j&$`R<SQ&5];`[[op$W\21>WE*+/+lZ9,>mpb8l(jZ=TjGTlpeEhK5]PHK-7j;.nrh'qn`d[kKQcLN+S4;Kl)856$!DtD[%#C_BNd;%'3A[(;/`#]30pBN4ln"UY[Ga9M]%PO5Lpl[c18+3le"iife)1O<tV_V+GpE*,0tN!P2cAHu=>tNURGeK7mo7m%gYTCo#U]gpKWTZjAb]]02I]gC'Vl5uF]8$Uhn!23e7*^"KukL0(srD/TUM8;4t^[G>*]U'fI&nIE)Sd<'.D0_c%"NN<o~>endstream
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000073 00000 n 
+0000000104 00000 n 
+0000000211 00000 n 
+0000000404 00000 n 
+0000000472 00000 n 
+0000000755 00000 n 
+0000000814 00000 n 
+trailer
+<<
+/ID 
+[<7283106eec42b5b461a6b683775b32ea><7283106eec42b5b461a6b683775b32ea>]
+% ReportLab generated PDF document -- digest (http://www.reportlab.com)
 
-Approximation guarantee:
-- Because the matching is maximal, any optimal vertex cover must include at
-  least one endpoint of each matching edge. Adding both endpoints gives a cover
-  of size â‰¤ 2 * OPT.
-
-Notes:
-- Randomization helps avoid worst-case deterministic tie-breaking; SEED allows
-  reproducible runs.
-- Output format: single line, space-separated vertices, no labels, to be grader-friendly.
+/Info 5 0 R
+/Root 4 0 R
+/Size 8
+>>
+startxref
+1875
+%%EOF
