@@ -1,0 +1,4 @@
+file,V,E,LB,approx_size,delta,ratio
+large_graph.txt,1479,3000,737,12,-725,0.016282225237449117
+medium_graph.txt,40,46,20,12,-8,0.6
+small_graph.txt,6,6,3,12,9,4.0

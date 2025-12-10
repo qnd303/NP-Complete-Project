@@ -22,17 +22,3 @@ Notes:
 - Randomization helps avoid worst-case deterministic tie-breaking; SEED allows
   reproducible runs.
 - Output format: single line, space-separated vertices, no labels, to be grader-friendly.
-
-script used to detect number of edges and vertices:
-
-for f in small_graph.txt medium_graph.txt large_graph.txt non_optimal.txt
-do
-    echo "$f"
-
-    edges=$(wc -l < "$f")
-    vertices=$(awk '{print $1 "\n" $2}' "$f" | sort -n | uniq | tail -1)
-
-    echo "Vertices: $vertices"
-    echo "Edges: $edges"
-    echo
-done
